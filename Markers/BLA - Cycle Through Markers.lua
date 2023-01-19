@@ -3,40 +3,49 @@
 keyWord = "VERSE"
 
 
-function goToFirst(word)
+function goToFirst(searchWord)
   retval, num_markers, num_regions = reaper.CountProjectMarkers(0)
   
-  for i=1, num_markers do
-    retVal, isRgn, pos, rgnEnd, name, markIDX = reaper.EnumProjectMarkers(i-1)
+  for i=0, num_markers + num_regions do
+    retVal, isRgn, pos, rgnEnd, name, IDX = reaper.EnumProjectMarkers(i)
 
-    if string.find(name, word) then
-      reaper.GoToMarker(0, i, 0)
+    if isRgn == false and string.find(name, searchWord) then
+      reaper.GoToMarker(0, IDX, 0)
+      break
+    elseif isRgn == true and string.find(name, searchWord) then
+      reaper.GoToRegion(0, IDX, 0)
       break
     end
   end
 end
 
-
+-------------------------------------------------------------------------------------------
 
 cursorPos = reaper.GetCursorPosition()
 
 marker, region = reaper.GetLastMarkerAndCurRegion(0, cursorPos)
 
-retVal, isRgn, pos, rgnEnd, name, startingIDX = reaper.EnumProjectMarkers(marker)
+if region == -1 then
+  retVal, isRgn, pos, rgnEnd, name, startIDX = reaper.EnumProjectMarkers(marker)
+else
+  retVal, isRgn, pos, rgnEnd, name, startIDX = reaper.EnumProjectMarkers(region)
+end
 
 
 if string.find(name, keyWord) then
   retval, num_markers, num_regions = reaper.CountProjectMarkers(0)
 
-  for i=1, num_markers do
-    retVal, isRgn, pos, rgnEnd, name, markIDX = reaper.EnumProjectMarkers(i-1)
+  for i=0, num_markers + num_regions do
+    retVal, isRgn, pos, rgnEnd, name, IDX = reaper.EnumProjectMarkers(i)
     
-    if string.find(name, keyWord) and markIDX > startingIDX then
-      reaper.GoToMarker(0, i, 0)
+    if isRgn == false and string.find(name, keyWord) and IDX > startIDX then
+      reaper.GoToMarker(0, IDX, 0)
       break
-    end
+    elseif isRgn == true and string.find(name, keyWord) and IDX > startIDX then
+      reaper.GoToRegion(0, IDX, 0)
+      break
 
-    if i == num_markers and string.find(name, keyWord) == nil then
+    elseif i == num_markers + num_regions and string.find(name, keyWord) == nil then
       goToFirst(keyWord)
     end
   end
