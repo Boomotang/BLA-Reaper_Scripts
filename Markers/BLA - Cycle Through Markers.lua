@@ -3,6 +3,21 @@
 keyWord = "VERSE"
 
 
+function goToFirst(word)
+  retval, num_markers, num_regions = reaper.CountProjectMarkers(0)
+  
+  for i=1, num_markers do
+    retVal, isRgn, pos, rgnEnd, name, markIDX = reaper.EnumProjectMarkers(i-1)
+
+    if string.find(name, word) then
+      reaper.GoToMarker(0, i, 0)
+      break
+    end
+  end
+end
+
+
+
 cursorPos = reaper.GetCursorPosition()
 
 marker, region = reaper.GetLastMarkerAndCurRegion(0, cursorPos)
@@ -22,26 +37,10 @@ if string.find(name, keyWord) then
     end
 
     if i == num_markers and string.find(name, keyWord) == nil then
-      for i=1, num_markers do
-        retVal, isRgn, pos, rgnEnd, name, markIDX = reaper.EnumProjectMarkers(i-1)
-
-        if string.find(name, keyWord) then
-          reaper.GoToMarker(0, i, 0)
-          break
-        end
-      end
+      goToFirst(keyWord)
     end
   end
 else
-  retval, num_markers, num_regions = reaper.CountProjectMarkers(0)
-  
-  for i=1, num_markers do
-    retVal, isRgn, pos, rgnEnd, name, markIDX = reaper.EnumProjectMarkers(i-1)
-
-    if string.find(name, keyWord) then
-      reaper.GoToMarker(0, i, 0)
-      break
-    end
-  end
+  goToFirst(keyWord)
 end
 
