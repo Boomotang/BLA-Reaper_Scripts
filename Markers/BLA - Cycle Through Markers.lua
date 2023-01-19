@@ -1,7 +1,22 @@
 
 
-keyWord = "NAME"
+keyWord = "VERSE"
 
+
+function goToFirst(keyWord)
+  count = reaper.CountProjectMarkers(0)
+
+  for i=0, count do
+    _, _, pos, _, name, _ = reaper.EnumProjectMarkers(i)
+
+    if string.find(name, keyWord) then
+      reaper.SetEditCurPos(pos, 1, 1)
+      break
+    end
+  end
+end
+
+------------------------------------------------------------------------------------------
 
 -- GET MARKER & REGION INFO AT CURSOR
 
@@ -9,8 +24,8 @@ cursorPos = reaper.GetCursorPosition()
 
 marker, region = reaper.GetLastMarkerAndCurRegion(0, cursorPos)
 
-_, _, M_Pos, _, M_name, M_IDX = reaper.EnumProjectMarkers(marker)
-_, _, R_Pos, _, R_name, R_IDX = reaper.EnumProjectMarkers(region)
+_, _, M_Pos, _, M_Name, M_IDX = reaper.EnumProjectMarkers(marker)
+_, _, R_Pos, _, R_Name, R_IDX = reaper.EnumProjectMarkers(region)
 
 
 -- IF THERE IS NO REGION or
@@ -19,21 +34,29 @@ _, _, R_Pos, _, R_name, R_IDX = reaper.EnumProjectMarkers(region)
 --  THEN USE MARKER INFO GOING FORWARD, 
 
 -- ELSE USE REGION INFO GOING FORWARD
-
-if region == -1 or R_Pos < M_Pos and string.find(M_name, keyWord) then
+--[[
+if region == -1 or R_Pos < M_Pos and string.find(M_Name, keyWord) then
   _, isRgn, startPos, rgnEnd, startName, IDX = reaper.EnumProjectMarkers(marker)
 else
   _, isRgn, startPos, rgnEnd, startName, IDX = reaper.EnumProjectMarkers(region)
 end
-
+]]
 
 -- USE WHICHEVER COMES LATER IN TIMELINE AS STARTING INDEX FOR THE FOLLOWING LOOP
 -- (MARKER OR REGION)
 -- ( +1 STARTS LOOP AFTER CURSOR)
 
-if M_Pos > R_Pos then
+if string.find(M_Name, keyWord) == nil and string.find(R_Name, keyWord) == nil then
+  goToFirst(keyWord)
+  return
+end
+
+
+if region == -1 or M_Pos > R_Pos and string.find(M_Name, keyWord) then
+  _, _, _, _, startName = reaper.EnumProjectMarkers(marker)
   startIDX = marker+1
-else
+elseif region then 
+  _, _, _, _, startName = reaper.EnumProjectMarkers(region)
   startIDX = region+1
 end
 
@@ -57,14 +80,7 @@ for i=startIDX, count do
     break
 
   elseif i == count then
-    for i=0, count do
-      _, _, pos, _, name, _ = reaper.EnumProjectMarkers(i)
-
-      if string.find(name, keyWord) then
-        reaper.SetEditCurPos(pos, 1, 1)
-        break
-      end
-    end
+    goToFirst(keyWord)
     break
   end
 end
