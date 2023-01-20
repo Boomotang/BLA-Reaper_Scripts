@@ -18,7 +18,7 @@ end
 
 ------------------------------------------------------------------------------------------
 
--- GET MARKER & REGION INFO AT CURSOR
+-- GET MARKER & REGION INFO AT CURSOR POSITION
 
 cursorPos = reaper.GetCursorPosition()
 
@@ -27,29 +27,32 @@ marker, region = reaper.GetLastMarkerAndCurRegion(0, cursorPos)
 _, _, M_Pos, _, M_Name, M_IDX = reaper.EnumProjectMarkers(marker)
 _, _, R_Pos, _, R_Name, R_IDX = reaper.EnumProjectMarkers(region)
 
-
--- IF THERE IS NO REGION or
--- IF REGION STARTS BEFORE MARKER and,
--- MARKER NAME CONTAINS keyWord,
---  THEN USE MARKER INFO GOING FORWARD, 
-
--- ELSE USE REGION INFO GOING FORWARD
---[[
-if region == -1 or R_Pos < M_Pos and string.find(M_Name, keyWord) then
-  _, isRgn, startPos, rgnEnd, startName, IDX = reaper.EnumProjectMarkers(marker)
-else
-  _, isRgn, startPos, rgnEnd, startName, IDX = reaper.EnumProjectMarkers(region)
-end
-]]
-
--- USE WHICHEVER COMES LATER IN TIMELINE AS STARTING INDEX FOR THE FOLLOWING LOOP
--- (MARKER OR REGION)
--- ( +1 STARTS LOOP AFTER CURSOR)
+-- IF BOTH MARKER & REGION DON'T CONTAIN keyWord THEN,
+--  GO TO FIRST keyWord & END SCRIPT
 
 if string.find(M_Name, keyWord) == nil and string.find(R_Name, keyWord) == nil then
   goToFirst(keyWord)
   return
 end
+
+
+-- IF THERE IS NO REGION or,
+-- IF REGION STARTS BEFORE MARKER and MARKER NAME CONTAINS keyWord THEN,
+--  USE MARKER INFO GOING FORWARD, 
+
+-- ELSE USE REGION INFO GOING FORWARD
+
+if region == -1 or R_Pos < M_Pos and string.find(M_Name, keyWord) then
+  _, isRgn, startPos, rgnEnd, startName, IDX = reaper.EnumProjectMarkers(marker)
+else
+  _, isRgn, startPos, rgnEnd, startName, IDX = reaper.EnumProjectMarkers(region)
+end
+
+
+-- USE WHICHEVER COMES LATER IN TIMELINE AS STARTING INDEX FOR THE FOLLOWING LOOP
+-- (MARKER OR REGION)
+-- ( +1 STARTS LOOP AFTER CURSOR)
+
 
 
 if region == -1 or M_Pos > R_Pos and string.find(M_Name, keyWord) then
