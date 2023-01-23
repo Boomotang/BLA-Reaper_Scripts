@@ -68,4 +68,3 @@ if toggleA == true then
       reaper.Main_OnCommand(Group1,0) -- select Group 1
   end
 end
-

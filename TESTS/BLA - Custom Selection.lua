@@ -31,4 +31,3 @@ reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 for i=1, #tbNewTracks do
   reaper.SetTrackSelected(tbNewTracks[i], true)
 end
-
