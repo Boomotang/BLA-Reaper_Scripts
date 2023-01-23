@@ -1,35 +1,70 @@
 
 
-keyWord = "VERSE"
+
+-- USER SETUP ----------------------
+
+Track1 = "TRACK_NAME"
+Group1 = 11111
+Group2 = 22222
+
+------------------------- USER SETUP
 
 
-function goToFirst(keyWord)
-  count = reaper.CountProjectMarkers(0)
+-- SETTING INITIAL TOGGLE STATE
+toggleA = false
 
-  for i=0, count do
-    _, _, pos, _, name, _ = reaper.EnumProjectMarkers(i)
 
-    if string.find(name, keyWord) then
-      reaper.SetEditCurPos(pos, 1, 1)
-      break
-    end
+-- Scroll mixer to selected track.
+function mixerScroll()
+  selTrack = reaper.GetSelectedTrack(0,0)
+  reaper.SetMixerScroll(selTrack)
+end
+
+----------------------------------------------
+
+-- END SCRIPT IF NO TRACKS SELECTED
+trackCount = reaper.CountSelectedTracks(0)
+if trackCount == 0 then return end
+
+
+-- Get Track Name of selected track.
+_, trackName = reaper.GetTrackName(reaper.GetSelectedTrack(0,0), "")
+
+
+-- SET TOGGLE STATE AFTER CHECKING SELECTED TRACK NAME
+if trackName == Track1   then   toggleA = true   end
+
+
+-------------- SCROLLING ACTIONS -------------
+
+------------ TRACK 1 NOT SELECTED ------------
+
+if toggleA == false then
+  reaper.Main_OnCommand(Group1,0)  -- select Group 1
+  
+  trackCount = reaper.CountSelectedTracks(0)
+  if trackCount >= 1 then  -- Don't scroll if no tracks were selected.
+    mixerScroll()
+    else
+      reaper.Main_OnCommand(Group2,0)  -- select Group 2
+      
+      trackCount = reaper.CountSelectedTracks(0)
+      if trackCount >= 1 then  -- Don't scroll if no tracks were selected.
+        mixerSCroll()
+      end
   end
 end
 
-------------------------------------------------------------------------------------------
 
-cursorPos = reaper.GetCursorPosition()
+------------- TRACK 1 SELECTED -------------
 
-marker, region = reaper.GetLastMarkerAndCurRegion(0, cursorPos)
-
-_, _, M_Pos, _, M_Name, M_IDX = reaper.EnumProjectMarkers(marker)
-_, _, R_Pos, _, R_Name, R_IDX = reaper.EnumProjectMarkers(region)
-
-
-if string.find(M_Name, keyWord) == nil and string.find(R_Name, keyWord) == nil then
-  goToFirst(keyWord)
-  return
+if toggleA == true then
+  reaper.Main_OnCommand(Group2,0) -- select Group 2
+  
+  trackCount = reaper.CountSelectedTracks(0)
+  if trackCount >= 1 then  -- Don't scroll if no tracks were selected.
+    mixerScroll()
+    else
+      reaper.Main_OnCommand(Group1,0)  -- select Group 1
+  end
 end
-
-
-returnTest = "ON"
