@@ -5,11 +5,11 @@
 ---------------------------------------
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
-Track1 = "TRACK_1_NAME"
-Track2 = "TRACK_2_NAME"
-Group1 = 11111          --  << COMMAND ID
-Group2 = 22222          --  << COMMAND ID
-Group3 = 33333          --  << COMMAND ID
+Track1 = " KEYS "
+Track2 = " PADS "
+Group1 = 42262          --  << COMMAND ID
+Group2 = 42261          --  << COMMAND ID
+Group3 = 42260          --  << COMMAND ID
 
 
 -- Get info of this action.

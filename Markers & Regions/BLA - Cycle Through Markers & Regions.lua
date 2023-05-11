@@ -1,6 +1,6 @@
 
 
-keyWord = "VERSE"
+keyWord = "      "
 
 
 function goToFirst(keyWord)

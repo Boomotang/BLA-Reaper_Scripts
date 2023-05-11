@@ -6,8 +6,8 @@
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
 Track1 = "TRACK_1_NAME"
-Group1 = 11111
-Group2 = 22222
+Group1 = 11111          --  << COMMAND ID
+Group2 = 22222          --  << COMMAND ID
 
 
 -- Get info of this action.
