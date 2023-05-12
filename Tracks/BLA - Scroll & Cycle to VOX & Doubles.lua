@@ -5,7 +5,7 @@
 ---------------------------------------
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
-Track1 = " VOX  "
+Track1 = "L-VOX"
 Group1 = 42268          --  << COMMAND ID
 Group2 = 42267          --  << COMMAND ID
 
