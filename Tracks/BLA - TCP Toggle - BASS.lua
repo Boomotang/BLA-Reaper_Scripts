@@ -5,10 +5,8 @@
 ---------------------------------------
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
-Group1 = 42244          --  << COMMAND ID
-TrackName1 = "      "
-TrackName2 = "      "
-TrackName3 = "      "
+Group1 = 42255          --  << COMMAND ID
+TrackName1 = "TRACKS"
 
 
 tbTracks = {}     -- MediaTracks
@@ -35,9 +33,7 @@ end
 -- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
 for i=1, #tbNames do
   if
-    string.find(tbNames[i], TrackName1) or
-    string.find(tbNames[i], TrackName2) or
-    string.find(tbNames[i], TrackName3) then
+    string.find(tbNames[i], TrackName1) then
       table.insert(tbNewTracks, tbTracks[i])
   end
 end
@@ -48,6 +44,8 @@ reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 for i=1, #tbNewTracks do
   reaper.SetTrackSelected(tbNewTracks[i], true)
 end
+
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
 
 reaper.Main_OnCommand(40853, 0)  -- Toggle TCP Visibility
 

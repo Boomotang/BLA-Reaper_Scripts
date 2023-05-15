@@ -6,9 +6,10 @@
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
 Group1 = 42268          --  << COMMAND ID
-TrackName1 = "SF%d"     --  %d = if any digit is found
-TrackName2 = "LD%d"
-TrackName3 = "D%d"
+TrackName1 = "V1%-SF"
+TrackName2 = "V1%-LD"
+TrackName3 = "SF%-D"
+TrackName4 = "LD%-D"
 
 
 tbTracks = {}     -- MediaTracks
@@ -37,7 +38,8 @@ for i=1, #tbNames do
   if
     string.find(tbNames[i], TrackName1) or
     string.find(tbNames[i], TrackName2) or
-    string.find(tbNames[i], TrackName3) then
+    string.find(tbNames[i], TrackName3) or
+    string.find(tbNames[i], TrackName4) then
       table.insert(tbNewTracks, tbTracks[i])
   end
 end
@@ -48,6 +50,8 @@ reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 for i=1, #tbNewTracks do
   reaper.SetTrackSelected(tbNewTracks[i], true)
 end
+
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
 
 reaper.Main_OnCommand(40853, 0)  -- Toggle TCP Visibility
 
