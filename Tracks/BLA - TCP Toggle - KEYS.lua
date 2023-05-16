@@ -41,26 +41,13 @@ end
 
 reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 
--- select all tracks from TABLE: tbNewTracks
-for i=1, #tbNewTracks do
-  reaper.SetTrackSelected(tbNewTracks[i], true)
-end
-
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
-
-reaper.Main_OnCommand(40853, 0)  -- Toggle TCP Visibility
-
-reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
-
 
 
 tbTracks = nil
 tbNames = nil
-tbNewTracks = nil
 
 tbTracks = {}     -- MediaTracks
 tbNames = {}      -- Names of MediaTracks
-tbNewTracks = {}  -- new selection of MediaTracks from specified Names
 
 reaper.Main_OnCommand(Group2, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
@@ -88,26 +75,13 @@ end
 
 reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 
--- select all tracks from TABLE: tbNewTracks
-for i=1, #tbNewTracks do
-  reaper.SetTrackSelected(tbNewTracks[i], true)
-end
-
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
-
-reaper.Main_OnCommand(40853, 0)  -- Toggle TCP Visibility
-
-reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
-
 
 
 tbTracks = nil
 tbNames = nil
-tbNewTracks = nil
 
 tbTracks = {}     -- MediaTracks
 tbNames = {}      -- Names of MediaTracks
-tbNewTracks = {}  -- new selection of MediaTracks from specified Names
 
 reaper.Main_OnCommand(Group3, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
