@@ -5,9 +5,11 @@
 ---------------------------------------
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
-Group1 = 42244
-TrackName1 = "PFX"
-TrackName2 = "CHN"
+Group1 = 42254          --  << COMMAND ID
+TrackName1 = "KIT"
+TrackName2 = "RVB"
+TrackName3 = "CMP"
+TrackName4 = "DELAY"
 
 
 tbTracks = {}     -- MediaTracks
@@ -16,7 +18,6 @@ tbNewTracks = {}  -- new selection of MediaTracks from specified Names
 
 reaper.Main_OnCommand(Group1, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
-
 
 trCount = reaper.CountSelectedTracks(0)
 
@@ -34,7 +35,11 @@ end
 
 -- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
 for i=1, #tbNames do
-  if not string.find(tbNames[i], TrackName1) and not string.find(tbNames[i], TrackName2) then
+  if
+    string.find(tbNames[i], TrackName1) or
+    string.find(tbNames[i], TrackName2) or
+    string.find(tbNames[i], TrackName3) or
+    string.find(tbNames[i], TrackName4) then
       table.insert(tbNewTracks, tbTracks[i])
   end
 end
@@ -46,6 +51,6 @@ for i=1, #tbNewTracks do
   reaper.SetTrackSelected(tbNewTracks[i], true)
 end
 
-reaper.Main_OnCommand(40853, 0)  -- Toggle TCP Visibility
+reaper.Main_OnCommand(40853, 0)  -- Toggle show/hide in TCP
 
 reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
