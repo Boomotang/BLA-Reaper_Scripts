@@ -15,6 +15,7 @@ tbTracks = {}     -- MediaTracks
 tbNames = {}      -- Names of MediaTracks
 tbNewTracks = {}  -- new selection of MediaTracks from specified Names
 
+
 reaper.Main_OnCommand(Group1, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
 
@@ -46,8 +47,10 @@ reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 tbTracks = nil
 tbNames = nil
 
-tbTracks = {}     -- MediaTracks
-tbNames = {}      -- Names of MediaTracks
+tbTracks = {}
+tbNames = {}
+
+
 
 reaper.Main_OnCommand(Group2, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
@@ -80,8 +83,10 @@ reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 tbTracks = nil
 tbNames = nil
 
-tbTracks = {}     -- MediaTracks
-tbNames = {}      -- Names of MediaTracks
+tbTracks = {}
+tbNames = {}
+
+
 
 reaper.Main_OnCommand(Group3, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)

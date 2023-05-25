@@ -19,6 +19,7 @@ tbNames = {}        -- Names of MediaTracks
 tbNewTracks = {}    -- new selection of MediaTracks from specified Names
 tbFinalTracks = {}  -- final selection of tracks after excluding "PFX"
 
+
 reaper.Main_OnCommand(Group1, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
 

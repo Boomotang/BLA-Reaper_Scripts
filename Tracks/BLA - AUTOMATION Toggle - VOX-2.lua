@@ -6,6 +6,7 @@
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
 Group1 = 42266          --  << COMMAND ID
+Group2 = 42268          --  << COMMAND ID
 Bus1 = "VOX%-2"
 Bus2 = "V2%-DBL"
 TrackName1 = "VOX%-2"
@@ -116,7 +117,7 @@ tbNewTracks = {}
 ---------------------------------------------------------------------------------------
 
 
-reaper.Main_OnCommand(Group1, 0)  -- select group
+reaper.Main_OnCommand(Group2, 0)  -- select group
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
 
 trCount = reaper.CountSelectedTracks(0)
