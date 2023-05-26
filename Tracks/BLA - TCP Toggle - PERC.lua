@@ -46,7 +46,7 @@ for i=1, #tbNewTracks do
   reaper.SetTrackSelected(tbNewTracks[i], true)
 end
 
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
 
 reaper.Main_OnCommand(40853, 0)  -- Toggle TCP Visibility
 

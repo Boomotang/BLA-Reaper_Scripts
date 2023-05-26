@@ -10,6 +10,10 @@ TrackName1 = "KIT"
 TrackName2 = "RVB"
 TrackName3 = "CMP"
 TrackName4 = "DELAY"
+TrackName5 = "KICK"
+TrackName6 = "SNARE"
+TrackName7 = "TOMS"
+TrackName8 = "%(%+AUTO%)"
 
 
 tbTracks = {}     -- MediaTracks
@@ -39,7 +43,11 @@ for i=1, #tbNames do
     string.find(tbNames[i], TrackName1) or
     string.find(tbNames[i], TrackName2) or
     string.find(tbNames[i], TrackName3) or
-    string.find(tbNames[i], TrackName4) then
+    string.find(tbNames[i], TrackName4) or
+    string.find(tbNames[i], TrackName5) or
+    string.find(tbNames[i], TrackName6) or
+    string.find(tbNames[i], TrackName7) or
+    string.find(tbNames[i], TrackName8) then
       table.insert(tbNewTracks, tbTracks[i])
   end
 end

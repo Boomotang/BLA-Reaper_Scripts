@@ -8,10 +8,11 @@
 Group1 = 42254          --  << COMMAND ID
 Name1 = "ROOM"
 Name2 = "  OH  "
+Name3 = "%(%+TCP%)"
 TrackName1 = "KICK"
 TrackName2 = "SNARE"
 TrackName3 = "TOMS"
-TrackName4 = "DIRECT"
+TrackName4 = "METALS"
 
 
 tbTracks = {}       -- MediaTracks
@@ -37,11 +38,21 @@ for i=1, #tbTracks do
   table.insert(tbNames, selName)
 end
 
--- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks 
 for i=1, #tbNames do
-  if 
+  if
     string.find(tbNames[i], Name1) or
     string.find(tbNames[i], Name2) or
+    string.find(tbNames[i], Name3) then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
+
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbNewTracks
+for i=1, #tbNames do
+  if
     string.find(tbNames[i], TrackName1) or
     string.find(tbNames[i], TrackName2) or
     string.find(tbNames[i], TrackName3) or
@@ -66,7 +77,7 @@ for i=1, #tbNewTracks do
       reaper.SetTrackSelected(tbNewTracks[i], true)
 end
 
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
 
 -- put selected tracks into TABLE: tbTracks
 for i=0, trCount do

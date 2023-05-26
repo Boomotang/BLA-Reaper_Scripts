@@ -6,11 +6,12 @@
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
 Group1 = 42259          --  << COMMAND ID
-TrackName1 = "AC%-"
-TrackName2 = "PFX"
-TrackName3 = "FX"
-TrackName4 = "REVERB"
-TrackName5 = "DELAY"
+TrackName1 = "PFX"
+TrackName2 = "FX"
+TrackName3 = "REVERB"
+TrackName4 = "DELAY"
+TrackName5 = "L%-AC"
+TrackName6 = "R%-AC"
 
 
 tbTracks = {}     -- MediaTracks
@@ -41,7 +42,8 @@ for i=1, #tbNames do
     string.find(tbNames[i], TrackName2) or
     string.find(tbNames[i], TrackName3) or
     string.find(tbNames[i], TrackName4) or
-    string.find(tbNames[i], TrackName5) then
+    string.find(tbNames[i], TrackName5) or
+    string.find(tbNames[i], TrackName6) then
       table.insert(tbNewTracks, tbTracks[i])
   end
 end
