@@ -14,6 +14,7 @@ TrackName1 = "TRACKS"
 tbTracks = {}     -- MediaTracks
 tbNames = {}      -- Names of MediaTracks
 tbNewTracks = {}  -- new selection of MediaTracks from specified Names
+tbFinalTracks = {}  -- final selection of MediaTracks
 
 
 reaper.Main_OnCommand(Group1, 0)  -- select group
@@ -33,7 +34,7 @@ for i=1, #tbTracks do
   table.insert(tbNames, selName)
 end
 
--- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
+-- check names and specify ones to put from the TABLE:tbTracks intoTABLE:tbNewTracks
 for i=1, #tbNames do
   if string.find(tbNames[i], TrackName1) then
       table.insert(tbNewTracks, tbTracks[i])
@@ -69,7 +70,7 @@ for i=1, #tbTracks do
   table.insert(tbNames, selName)
 end
 
--- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
+-- check names and specify ones to put from the TABLE:tbTracks intoTABLE:tbNewTracks
 for i=1, #tbNames do
   if string.find(tbNames[i], TrackName1) then
       table.insert(tbNewTracks, tbTracks[i])
@@ -105,7 +106,7 @@ for i=1, #tbTracks do
   table.insert(tbNames, selName)
 end
 
--- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
+-- check names and specify ones to put from the TABLE:tbTracks intoTABLE:tbNewTracks
 for i=1, #tbNames do
   if string.find(tbNames[i], TrackName1) then
       table.insert(tbNewTracks, tbTracks[i])
@@ -114,12 +115,51 @@ end
 
 reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 
+
+
+
 -- select all tracks from TABLE: tbNewTracks
 for i=1, #tbNewTracks do
   reaper.SetTrackSelected(tbNewTracks[i], true)
 end
 
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN"), 0)
+
+-- put selected tracks into TABLE: tbFinalTracks
+for i=0, trCount do
+  selTrack = reaper.GetSelectedTrack(0, i)
+  table.insert(tbFinalTracks, selTrack)
+end
+
+reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
+
+
+
+-------------------------
+-- Add 'Separator' track.
+-------------------------
+
+
+
+reaper.Main_OnCommand(Group1, 0)  -- select group
+
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELPREVTRACK"), 0)  -- select previous track
+
+-- put selected tracks into TABLE: tbFinalTracks
+for i=0, trCount do
+  selTrack = reaper.GetSelectedTrack(0, i)
+  table.insert(tbFinalTracks, selTrack)
+end
+
+reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
+
+
+
+
+-- select all tracks from TABLE: tbFinalTracks
+for i=1, #tbFinalTracks do
+  reaper.SetTrackSelected(tbFinalTracks[i], true)
+end
 
 reaper.Main_OnCommand(40853, 0)  -- Toggle TCP Visibility
 

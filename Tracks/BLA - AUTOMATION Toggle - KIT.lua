@@ -7,13 +7,14 @@
 ---------------------------------------
 Group1 = 42254          --  << COMMAND ID
 TrackName1 = "KIT"
-TrackName2 = "RVB"
-TrackName3 = "CMP"
-TrackName4 = "DELAY"
-TrackName5 = "KICK"
-TrackName6 = "SNARE"
-TrackName7 = "TOMS"
-TrackName8 = "%(%+AUTO%)"
+TrackName2 = "DIRTY"
+TrackName3 = "RVB"
+TrackName4 = "CMP"
+TrackName5 = "DELAY"
+TrackName6 = "KICK"
+TrackName7 = "SNARE"
+TrackName8 = "TOMS"
+TrackName9 = "%(%+AUTO%)"
 
 
 tbTracks = {}     -- MediaTracks
@@ -47,7 +48,8 @@ for i=1, #tbNames do
     string.find(tbNames[i], TrackName5) or
     string.find(tbNames[i], TrackName6) or
     string.find(tbNames[i], TrackName7) or
-    string.find(tbNames[i], TrackName8) then
+    string.find(tbNames[i], TrackName8) or
+    string.find(tbNames[i], TrackName9) then
       table.insert(tbNewTracks, tbTracks[i])
   end
 end

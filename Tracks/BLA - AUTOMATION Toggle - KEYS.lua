@@ -153,6 +153,40 @@ reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
 
 
 
+--------------------------
+-- Add 'Separator' tracks.
+--------------------------
+
+
+
+reaper.Main_OnCommand(Group2, 0)  -- select group
+
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELPREVTRACK"), 0)  -- select previous track
+
+-- put selected tracks into TABLE: tbFinalTracks
+for i=0, trCount do
+  selTrack = reaper.GetSelectedTrack(0, i)
+  table.insert(tbFinalTracks, selTrack)
+end
+
+reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
+
+
+reaper.Main_OnCommand(Group3, 0)  -- select group
+
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELPREVTRACK"), 0)  -- select previous track
+
+-- put selected tracks into TABLE: tbFinalTracks
+for i=0, trCount do
+  selTrack = reaper.GetSelectedTrack(0, i)
+  table.insert(tbFinalTracks, selTrack)
+end
+
+reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
+
+
+
+
 -- select all tracks from TABLE: tbFinalTracks
 for i=1, #tbFinalTracks do
   reaper.SetTrackSelected(tbFinalTracks[i], true)
