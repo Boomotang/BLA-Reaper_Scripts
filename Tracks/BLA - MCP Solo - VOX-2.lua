@@ -5,7 +5,7 @@
 ---------------------------------------
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
-Group1 = 42266          --  << COMMAND ID
+Group1 = 42268          --  << COMMAND ID
 Bus1 = "VOX%-2"
 Bus2 = "V2%-DBL"
 ExcludeName = "%(%-AUTO%)"
@@ -23,7 +23,7 @@ tbFinalTracks = {}  -- final selection of MediaTracks
 
 
 ---------------------------------------------------------------------------------------
--- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS then single out VOX-1 & children.
+-- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS then single out VOX-2 & children.
 ---------------------------------------------------------------------------------------
 
 
@@ -213,7 +213,7 @@ tbNamesRemove = {}
 
 
 ----------------------------------------------------------------------------------------
--- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS then single out V1-DBL & children.
+-- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS then single out V2-DBL & children.
 ----------------------------------------------------------------------------------------
 
 
