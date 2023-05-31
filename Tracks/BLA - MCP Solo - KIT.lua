@@ -7,7 +7,7 @@
 ---------------------------------------
 Group1 = 42254          --  << COMMAND ID
 
-Name1 = "KIT"
+Name1 = " KIT  "
 Name2 = "KICK"
 Name3 = "K%-SUB"
 Name4 = "K%-OUT"

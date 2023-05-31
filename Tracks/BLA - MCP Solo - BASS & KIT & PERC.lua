@@ -9,7 +9,7 @@ Group1 = 42254          --  << COMMAND ID     KIT
 Group2 = 42255          --  << COMMAND ID     BASS
 Group3 = 42252          --  << COMMAND ID     PERC
 
-Name1 = "KIT"
+Name1 = " KIT  "
 Name2 = "DIRTY"
 Name3 = " ROOM "
 Name4 = "KICK"
