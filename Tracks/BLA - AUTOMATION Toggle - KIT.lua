@@ -6,7 +6,7 @@
 ----- SET THE FOLLOWING VARIABLES -----
 ---------------------------------------
 Group1 = 42254          --  << COMMAND ID
-TrackName1 = "KIT"
+TrackName1 = " KIT  "
 TrackName2 = "DIRTY"
 TrackName3 = "RVB"
 TrackName4 = "CMP"
