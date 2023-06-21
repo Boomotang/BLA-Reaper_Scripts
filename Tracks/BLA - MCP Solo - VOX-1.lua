@@ -44,6 +44,26 @@ for i=1, #tbTracks do
   table.insert(tbNames, selName)
 end
 
+
+
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks
+for i=1, #tbNames do
+  if string.find(tbNames[i], "PFX") and string.find(tbNames[i], "1") then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks
+for i=1, #tbNames do
+  if string.find(tbNames[i], "%(%+SOLO%)") or string.find(tbNames[i], "%(V1%)") then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
+
+
+
+
 -- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
 for i=1, #tbNames do
   if string.find(tbNames[i], Bus1) then
@@ -283,7 +303,9 @@ end
 
 -- check names and specify ones to put in new TABLE:tbFinalTracks from the TABLE:tbTracks
 for i=1, #tbNames do
-  if not string.find(tbNames[i], ExcludeName) then
+  if not string.find(tbNames[i], ExcludeName) and not
+    string.find(tbNames[i], "LD%-D") and not
+    string.find(tbNames[i], "SF%-D") then
       table.insert(tbFinalTracks, tbTracks[i])
   end
 end

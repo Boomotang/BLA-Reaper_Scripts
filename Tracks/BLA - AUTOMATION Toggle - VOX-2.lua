@@ -9,8 +9,8 @@ Group1 = 42266          --  << COMMAND ID
 Group2 = 42268          --  << COMMAND ID
 Bus1 = "VOX%-2"
 Bus2 = "V2%-DBL"
-TrackName1 = "VOX%-2"
-TrackName2 = "PFX"
+TrackName1 = "PFX"
+TrackName2 = "VOX%-2"
 TrackName3 = "SF%-D"
 TrackName4 = "LD%-D"
 
@@ -74,9 +74,9 @@ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELCHILDREN2"), 0)
 
 
 
-------------------------------------
--- Put VOX-1 & PFX in tbFinalTracks.
-------------------------------------
+------------------------------
+-- Put VOX-1 in tbFinalTracks.
+------------------------------
 
 
 -- put selected tracks into TABLE: tbTracks
@@ -93,9 +93,7 @@ end
 
 -- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks 
 for i=1, #tbNames do
-  if
-    string.find(tbNames[i], TrackName1) or
-    string.find(tbNames[i], TrackName2) then
+  if string.find(tbNames[i], TrackName2) then
       table.insert(tbFinalTracks, tbTracks[i])
   end
 end
@@ -133,6 +131,17 @@ for i=1, #tbTracks do
   _, selName = reaper.GetTrackName(tbTracks[i])
   table.insert(tbNames, selName)
 end
+
+
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks 
+for i=1, #tbNames do
+  if string.find(tbNames[i], TrackName1) and string.find(tbNames[i], "2") then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
+
+
 
 -- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
 for i=1, #tbNames do
