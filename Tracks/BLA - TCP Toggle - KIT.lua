@@ -13,12 +13,14 @@ TrackName1 = "KICK"
 TrackName2 = "SNARE"
 TrackName3 = "TOMS"
 TrackName4 = "METALS"
+ExcludeName1 = "SAMP"
+ExcludeName2 = "PUNCH"
 
 
 tbTracks = {}       -- MediaTracks
 tbNames = {}        -- Names of MediaTracks
 tbNewTracks = {}    -- new selection of MediaTracks from specified Names
-tbFinalTracks = {}  -- final selection of tracks after excluding "PFX"
+tbFinalTracks = {}  -- final selection of tracks
 
 
 reaper.Main_OnCommand(Group1, 0)  -- select group
@@ -93,7 +95,7 @@ end
 
 -- check names and specify ones to put in new TABLE:tbFinalTracks from the TABLE:tbTracks
 for i=1, #tbNames do
-  if not string.find(tbNames[i], "PFX") and not string.find(tbNames[i], "SMP") then
+  if not string.find(tbNames[i], ExcludeName1) and not string.find(tbNames[i], ExcludeName2) then
       table.insert(tbFinalTracks, tbTracks[i])
   end
 end
