@@ -9,6 +9,7 @@ Group1 = 42268          --  << COMMAND ID
 Bus1 = "VOX%-1"
 Bus2 = "V1%-DBL"
 TrackName1 = "PFX"
+tNameCondition = "%u1"
 TrackName2 = "VOX%-1"
 TrackName3 = "SF%-D"
 TrackName4 = "LD%-D"
@@ -47,7 +48,7 @@ end
 
 -- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks 
 for i=1, #tbNames do
-  if string.find(tbNames[i], TrackName1) and string.find(tbNames[i], "1") then
+  if string.find(tbNames[i], TrackName1) and string.find(tbNames[i], tNameCondition) then
       table.insert(tbFinalTracks, tbTracks[i])
   end
 end

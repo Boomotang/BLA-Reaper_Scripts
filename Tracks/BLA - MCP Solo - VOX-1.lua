@@ -8,7 +8,7 @@
 Group1 = 42268          --  << COMMAND ID
 Bus1 = "VOX%-1"
 Bus2 = "V1%-DBL"
-ExcludeName = "%(%-AUTO%)"
+ExcludeName = "%(%-MCP%)"
 ExcludeChildrenFolder1 = "V1%-SF"
 ExcludeChildrenFolder2 = "V1%-LD"
 
@@ -22,9 +22,9 @@ tbFinalTracks = {}  -- final selection of MediaTracks
 
 
 
----------------------------------------------------------------------------------------
--- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS then single out VOX-1 & children.
----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+-- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS & populate tbFinalTracks w/ ROOM, PFX, & Separator tracks.
+----------------------------------------------------------------------------------------------------------------
 
 
 reaper.Main_OnCommand(Group1, 0)  -- select group
@@ -46,10 +46,16 @@ end
 
 
 
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks
+for i=1, #tbNames do
+  if string.find(tbNames[i], "ROOM") then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
 
 -- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks
 for i=1, #tbNames do
-  if string.find(tbNames[i], "PFX") and string.find(tbNames[i], "1") then
+  if string.find(tbNames[i], "PFX") and string.find(tbNames[i], "%u1") then
       table.insert(tbFinalTracks, tbTracks[i])
   end
 end
@@ -61,6 +67,11 @@ for i=1, #tbNames do
   end
 end
 
+
+
+-------------------------------
+-- Single out VOX-1 & children.
+-------------------------------
 
 
 
