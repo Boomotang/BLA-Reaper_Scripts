@@ -341,4 +341,11 @@ end
 
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWSTL_SHOWMCPEX"), 0)
 
-reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
+
+-- Scroll mixer to first track.
+reaper.Main_OnCommand(Group1, 0)  -- select group
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELNEXTTRACK"), 0)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELNEXTTRACK"), 0)
+
+scrollMixer = reaper.NamedCommandLookup("_RS3362313dca57362b5f65ccc16fa19c12a2d6487e")
+reaper.Main_OnCommand(scrollMixer,0)
