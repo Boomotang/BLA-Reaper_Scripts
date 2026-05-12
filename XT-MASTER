@@ -1,0 +1,133 @@
+desc:Toggle states for ReaLearn & XTouch
+
+
+// ======================================================
+// BUTTON STATES (20)
+// ======================================================
+slider1:0<0,1,1>V1_1---01
+slider2:0<0,1,1>V2_1---02
+slider3:0<0,1,1>V3_1---03
+slider4:0<0,1,1>KEYS---04
+slider5:0<0,1,1>AC_1---05
+slider6:0<0,1,1>AC_2---06
+slider7:0<0,1,1>AXE_1---07
+slider8:0<0,1,1>AXE_2---08
+slider9:0<0,1,1>BASS---09
+slider10:0<0,1,1>KICK---10
+slider11:0<0,1,1>SNARE---11
+slider12:0<0,1,1>RT---12
+slider13:0<0,1,1>FT---13
+slider14:0<0,1,1>OH---14
+slider15:0<0,1,1>HH---15
+slider16:0<0,1,1>EQ_COMPS---16
+slider17:0<0,1,1>MB_SATURATOR---17
+slider18:0<0,1,1>V1_2---18
+slider19:0<0,1,1>V2_2---19
+slider20:0<0,1,1>V3_2---20
+
+
+// ======================================================
+// MODE STATES (9)
+// ======================================================
+slider21:0<0,1,1>MODE_EQ======21
+slider22:0<0,1,1>MODE_COMPS======22
+slider23:0<0,1,1>MODE_MB======23
+slider24:0<0,1,1>MODE_SATURATOR======24
+slider25:0<0,1,1>MODE_MISC======25
+slider26:0<0,1,1>MODE_EQ_FOCUSED======26
+slider27:0<0,1,1>MODE_EQ_FOCUSED_DYNAMICS======27
+slider28:0<0,1,1>MODE_EQ_DYNAMICS======28
+slider29:0<0,1,1>MODE_COMPS_FOCUSED======29
+
+
+// ======================================================
+// DERIVED DEFAULT STATE
+// ======================================================
+slider30:0<0,1,1>MODE_DEFAULT   30
+
+
+// ======================================================
+// INIT MEMORY
+// ======================================================
+@init
+i = 0;
+loop(30,
+    prev[i] = 0;
+    i += 1;
+);
+
+
+// ======================================================
+// RADIO LOGIC
+// ======================================================
+@slider
+
+
+// -----------------------------
+// BUTTON GROUP (1–20)
+// -----------------------------
+selected = -1;
+
+i = 0;
+loop(20,
+    slider(i+1) > 0.5 && prev[i] <= 0.5 ? selected = i;
+    i += 1;
+);
+
+selected >= 0 ? (
+    i = 0;
+    loop(20,
+        slider(i+1) = i == selected ? 1 : 0;
+        i += 1;
+    );
+);
+
+
+// -----------------------------
+// MODE GROUP (21–29)
+// -----------------------------
+selected = -1;
+
+i = 0;
+loop(9,
+    slider(21+i) > 0.5 && prev[20+i] <= 0.5 ? selected = i;
+    i += 1;
+);
+
+selected >= 0 ? (
+    i = 0;
+    loop(9,
+        slider(21+i) = i == selected ? 1 : 0;
+        i += 1;
+    );
+);
+
+
+// -----------------------------
+// DERIVED MODE_DEFAULT (custom logic)
+// -----------------------------
+eq_on = slider(21) > 0.5;
+mb_on = slider(23) > 0.5;
+eq_focused_on = slider(26) > 0.5;
+eq_focused_dynamics_on = slider(27) > 0.5;
+eq_dynamics_on = slider(28) > 0.5;
+
+
+// DEFAULT is OFF only when EQ, MB, or EQ_FOCUSED is ON
+slider(30) = (eq_on || mb_on || eq_focused_on || eq_focused_dynamics_on || eq_dynamics_on) ? 0 : 1;
+
+
+// -----------------------------
+// UPDATE MEMORY
+// -----------------------------
+i = 0;
+loop(30,
+    prev[i] = slider(i+1);
+    i += 1;
+);
+
+
+// ======================================================
+// NO AUDIO PROCESSING
+// ======================================================
+@block
