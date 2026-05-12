@@ -1,0 +1,1 @@
+reaper.TrackFX_SetParam(reaper.GetMasterTrack(0), 1, 1, 1)

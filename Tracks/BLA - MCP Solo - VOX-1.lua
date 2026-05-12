@@ -8,7 +8,7 @@
 Group1 = 42268          --  << COMMAND ID
 Bus1 = "VOX%-1"
 Bus2 = "V1%-DBL"
-ExcludeName = "%(%-AUTO%)"
+ExcludeName = "%(%-MCP%)"
 ExcludeChildrenFolder1 = "V1%-SF"
 ExcludeChildrenFolder2 = "V1%-LD"
 
@@ -22,9 +22,9 @@ tbFinalTracks = {}  -- final selection of MediaTracks
 
 
 
----------------------------------------------------------------------------------------
--- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS then single out VOX-1 & children.
----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+-- Populate tbTracks & tbNames w/ L-VOX FOLDER TRACKS & populate tbFinalTracks w/ ROOM, PFX, & Separator tracks.
+----------------------------------------------------------------------------------------------------------------
 
 
 reaper.Main_OnCommand(Group1, 0)  -- select group
@@ -43,6 +43,37 @@ for i=1, #tbTracks do
   _, selName = reaper.GetTrackName(tbTracks[i])
   table.insert(tbNames, selName)
 end
+
+
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks
+for i=1, #tbNames do
+  if string.find(tbNames[i], "ROOM") then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks
+for i=1, #tbNames do
+  if string.find(tbNames[i], "PFX") and string.find(tbNames[i], "%u1") then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
+
+-- check names and specify ones to put from the TABLE:tbTracks into TABLE:tbFinalTracks
+for i=1, #tbNames do
+  if string.find(tbNames[i], "%(%+SOLO%)") or string.find(tbNames[i], "%(V1%)") then
+      table.insert(tbFinalTracks, tbTracks[i])
+  end
+end
+
+
+
+-------------------------------
+-- Single out VOX-1 & children.
+-------------------------------
+
+
 
 -- check names and specify ones to put in new TABLE:tbNewTracks from the TABLE:tbTracks
 for i=1, #tbNames do
@@ -283,7 +314,9 @@ end
 
 -- check names and specify ones to put in new TABLE:tbFinalTracks from the TABLE:tbTracks
 for i=1, #tbNames do
-  if not string.find(tbNames[i], ExcludeName) then
+  if not string.find(tbNames[i], ExcludeName) and not
+    string.find(tbNames[i], "LD%-D") and not
+    string.find(tbNames[i], "SF%-D") then
       table.insert(tbFinalTracks, tbTracks[i])
   end
 end
@@ -308,4 +341,11 @@ end
 
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWSTL_SHOWMCPEX"), 0)
 
-reaper.Main_OnCommand(40297, 0)  -- unselect all tracks
+
+-- Scroll mixer to first track.
+reaper.Main_OnCommand(Group1, 0)  -- select group
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELNEXTTRACK"), 0)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELNEXTTRACK"), 0)
+
+scrollMixer = reaper.NamedCommandLookup("_RS3362313dca57362b5f65ccc16fa19c12a2d6487e")
+reaper.Main_OnCommand(scrollMixer,0)

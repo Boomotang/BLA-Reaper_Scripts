@@ -1,18 +1,5 @@
--- Removes matches between tbNames & tbNamesRemovse from tbFinalNames
 
-
-tbNames = {"V1", "AXES", "AC", "KEYS", "PERC", "KIT"}
-tbNamesRemove = {"AXES", "KEYS"}
-tbFinalNames = {"V1", "AXES", "AC", "KEYS", "PERC", "KIT"}
-
-
-
-
-for i=#tbNames, 1, -1 do
-  for j=1, #tbNamesRemove do
-    if tbNames[i] == tbNamesRemove[j] then
-      table.remove(tbFinalNames, i)
-      break
-    end
-  end
+for i=10, 19 do
+  reaper.TrackFX_SetParam(reaper.GetMasterTrack(0), reaper.TrackFX_GetByName(reaper.GetMasterTrack(0), "RL - TEST", 0), i, 1)
 end
+

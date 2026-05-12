@@ -51,18 +51,21 @@ if toggleA == false and toggleB == false then
   trackCount = reaper.CountSelectedTracks(0)
   if trackCount >= 1 then                  -- Don't scroll if no tracks were selected.
     reaper.Main_OnCommand(scrollMixer,0)
+    reaper.Main_OnCommand(40913, 0)
     else
     reaper.Main_OnCommand(Group2,0) -- select Group 2
     
     trackCount = reaper.CountSelectedTracks(0)
     if trackCount >= 1 then                -- Don't scroll if no tracks were selected.
       reaper.Main_OnCommand(scrollMixer,0)
+      reaper.Main_OnCommand(40913, 0)
       else
       reaper.Main_OnCommand(Group3,0) -- select Group 3
       
       trackCount = reaper.CountSelectedTracks(0)
       if trackCount >= 1 then              -- Don't scroll if no tracks were selected.
         reaper.Main_OnCommand(scrollMixer,0)
+        reaper.Main_OnCommand(40913, 0)
       end
     end
   end
@@ -77,12 +80,14 @@ if toggleA == true then
   trackCount = reaper.CountSelectedTracks(0)
   if trackCount >= 1 then                 -- Don't scroll if no tracks were selected.
   reaper.Main_OnCommand(scrollMixer,0)
+  reaper.Main_OnCommand(40913, 0)
   else
     reaper.Main_OnCommand(Group3,0) -- select Group 3
     
     trackCount = reaper.CountSelectedTracks(0)
     if trackCount >= 1 then               -- Don't scroll if no tracks were selected.
     reaper.Main_OnCommand(scrollMixer,0)
+    reaper.Main_OnCommand(40913, 0)
     else
       reaper.Main_OnCommand(Group1,0) -- select Group 1
     end
@@ -98,12 +103,14 @@ if toggleB == true then
   trackCount = reaper.CountSelectedTracks(0)
     if trackCount >= 1 then              -- Don't scroll if no tracks were selected.
     reaper.Main_OnCommand(scrollMixer,0)
+    reaper.Main_OnCommand(40913, 0)
     else
       reaper.Main_OnCommand(Group1,0) -- select Group 1
       
       trackCount = reaper.CountSelectedTracks(0)
       if trackCount >= 1 then            -- Don't scroll if no tracks were selected.
       reaper.Main_OnCommand(scrollMixer,0)
+      reaper.Main_OnCommand(40913, 0)
       else
         reaper.Main_OnCommand(Group2,0) -- select Group 2
       end
